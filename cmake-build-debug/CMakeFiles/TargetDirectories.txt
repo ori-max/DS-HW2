@@ -1,0 +1,3 @@
+/Users/Yotam/Desktop/DS_wet2_Spring_2025/cmake-build-debug/CMakeFiles/MyExecutableName.dir
+/Users/Yotam/Desktop/DS_wet2_Spring_2025/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/Yotam/Desktop/DS_wet2_Spring_2025/cmake-build-debug/CMakeFiles/rebuild_cache.dir
