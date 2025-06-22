@@ -16,7 +16,7 @@ public:
     Stack():data(nullptr), hash(nullptr), size(0) {}
     int getSize() const;
     void setSize(int size);
-    T* getItem() const;
+    T* getItem(int id) const;
     void push(T item);
     ~Stack();
 };
