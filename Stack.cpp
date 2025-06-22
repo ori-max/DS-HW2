@@ -61,3 +61,15 @@ void Stack<T>::push(T item) {
     }
     data[size++] = item;
 }
+template<typename T>
+T* Stack<T>::getItem(int id) const {
+    int firstIndex = id%capacity;
+    IntNode* currIndex = hash[id];
+    while (currIndex!=nullptr) {
+        if (currIndex->data == id) {
+            return currIndex->data;
+        }
+        currIndex = currIndex->next;
+    }
+    throw std::out_of_range("Item not found");//shouldn't happen whatsoever
+}
