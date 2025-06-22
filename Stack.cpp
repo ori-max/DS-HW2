@@ -52,8 +52,8 @@ T* Stack<T>::getItem(int id) const {
     int firstIndex = id%capacity;
     IntNode* currIndex = hash[firstIndex];
     while (currIndex!=nullptr) {
-        if (currIndex->data == id) {
-            return currIndex->data;
+        if (currIndex->id == id) {
+            return data[currIndex->data];
         }
         currIndex = currIndex->next;
     }
