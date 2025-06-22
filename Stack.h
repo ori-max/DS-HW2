@@ -9,10 +9,14 @@
 template <typename T>
 class Stack {
 private:
-    T* data;
+    T** data;
     int *hash;
     int size;
 public:
     Stack():data(nullptr), hash(nullptr), size(0) {}
+    int getSize() const;
+    int setSize() const;
+    T* getItem() const;
+    void push(T item);
     ~Stack();
 };
