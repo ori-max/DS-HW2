@@ -65,7 +65,7 @@ void Stack<T>::push(T item) {
 template<typename T>
 T* Stack<T>::getItem(int id) const {
     int firstIndex = id%capacity;
-    IntNode* currIndex = hash[id];
+    IntNode* currIndex = hash[firstIndex];
     while (currIndex!=nullptr) {
         if (currIndex->data == id) {
             return currIndex->data;
