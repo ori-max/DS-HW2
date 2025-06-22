@@ -26,23 +26,15 @@ void Stack<T>::push(T* item) {
         //This part should move hash into a new bigger array
         IntNode** temp2 = new IntNode* [capacity]();
         for (int i = 0; i < oldCapacity; i++) {
-            if (hash[i]!=nullptr) {
-                IntNode* currIndex = hash[i];
-                while(currIndex!=nullptr) {
-                    int currId = currIndex->id;
-                    int firstIndex = currId%capacity;
-                    if (temp2[firstIndex]!=nullptr) {
-                        IntNode* currNode = temp2[firstIndex];
-                        while(currNode->next!=nullptr) {
-                            currNode = currNode->next;
-                        }
-                        currNode->next = currIndex;
-                    }
-                    else {
-                        temp2[firstIndex] = currIndex;
-                    }
-                    currIndex = currIndex->next;
-                }
+            IntNode* currIndex = hash[i];
+            while (currIndex!=nullptr) {
+                IntNode* nextNode = currIndex->next;
+                int currId = currIndex->id;
+                int firstIndex = currId%capacity;
+                currIndex->next = temp2[firstIndex];
+                temp2[firstIndex] = currIndex;
+
+                currIndex = currIndex->next;
             }
         }
         delete [] hash;
@@ -50,16 +42,9 @@ void Stack<T>::push(T* item) {
     }
     int currId = item->getId(); //We need to make sure T types have this function!!!
     int firstIndex = currId%capacity;
-    if (hash[firstIndex]!=nullptr) {
-        IntNode* currNode = hash[firstIndex];
-        while(currNode->next!=nullptr) {
-            currNode = currNode->next;
-        }
-        currNode->next = new IntNode(currId, size);
-    }
-    else {
-        hash[firstIndex] = new IntNode(currId, size);
-    }
+    IntNode* newNode = new IntNode(currId, size);
+    newNode->next = hash[firstIndex];
+    hash[firstIndex] = newNode;
     data[size++] = item;
 }
 template<typename T>
