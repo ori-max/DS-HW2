@@ -29,6 +29,6 @@ public:
     int getSize() const;
     void setSize(int size);
     T* getItem(int id) const;
-    void push(T item);
+    void push(T* item);
     ~Stack();
 };

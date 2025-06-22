@@ -12,7 +12,7 @@ void Stack<T>::setSize(int size) {
 }
 
 template<typename T>
-void Stack<T>::push(T item) {
+void Stack<T>::push(T* item) {
     if (size >= capacity) {
         //This part should move data into a new bigger array
         int oldCapacity = capacity;
@@ -48,7 +48,7 @@ void Stack<T>::push(T item) {
         delete [] hash;
         hash = temp2;
     }
-    int currId = item.getId(); //We need to make sure T types have this function!!!
+    int currId = item->getId(); //We need to make sure T types have this function!!!
     int firstIndex = currId%capacity;
     if (hash[firstIndex]!=nullptr) {
         IntNode* currNode = hash[firstIndex];
