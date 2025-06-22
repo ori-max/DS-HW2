@@ -34,7 +34,7 @@ void Stack<T>::push(T* item) {
                 currIndex->next = temp2[firstIndex];
                 temp2[firstIndex] = currIndex;
 
-                currIndex = currIndex->next;
+                currIndex = nextNode;
             }
         }
         delete [] hash;
