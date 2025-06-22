@@ -15,6 +15,9 @@ private:
         IntNode *next;
         IntNode(int id, int data) : id(id), data(data), next(nullptr) {}
         IntNode(): id(0), data(0),next(nullptr) {}
+        ~IntNode() {
+            delete next;
+        }
     };
     T** data;
     IntNode** hash;
