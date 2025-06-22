@@ -9,8 +9,12 @@ add_executable(MyExecutableName
         dspotify25b2.cpp
         dspotify25b2.h
         wet2util.h
-        Nodes/Node.h
-        Nodes/Node.cpp
+        Stack.h
+        Stack.cpp
+        Genre.h
+        SongNode.h
+        SongNode.cpp
+        Genre.cpp
 )
 
 target_include_directories(MyExecutableName PRIVATE include)

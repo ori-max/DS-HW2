@@ -6,6 +6,8 @@ template<typename T>
 int Stack<T>::getSize() const {
     return size;
 }
+
+
 template<typename T>
 void Stack<T>::setSize(int size) {
     this->size = size;
@@ -40,6 +42,7 @@ void Stack<T>::push(T* item) {
         delete [] hash;
         hash = temp2;
     }
+
     int currId = item->getId(); //We need to make sure T types have this function!!!
     int firstIndex = currId%capacity;
     IntNode* newNode = new IntNode(currId, size);
@@ -47,6 +50,8 @@ void Stack<T>::push(T* item) {
     hash[firstIndex] = newNode;
     data[size++] = item;
 }
+
+
 template<typename T>
 T* Stack<T>::getItem(int id) const {
     int firstIndex = id%capacity;
@@ -59,6 +64,8 @@ T* Stack<T>::getItem(int id) const {
     }
     throw std::out_of_range("Item not found");//shouldn't happen whatsoever
 }
+
+
 template<typename T>
 Stack<T>::~Stack() {
     for (int i = 0; i < capacity; i++) {

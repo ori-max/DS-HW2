@@ -39,7 +39,7 @@ public:
 	output_t(StatusType status) : __status(status), __ans(T()) { }
 	output_t(const T &ans) : __status(StatusType::SUCCESS), __ans(ans) { }
 	
-	StatusType status() { return __status; }
+	StatusType status() const { return __status; }
 	T ans() { return __ans; }
 };
 

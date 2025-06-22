@@ -19,6 +19,7 @@ private:
             delete next;
         }
     };
+
     T** data;
     IntNode** hash;
     int size;
