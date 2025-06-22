@@ -17,14 +17,14 @@ void Stack<T>::push(T item) {
         //This part should move data into a new bigger array
         int oldCapacity = capacity;
         capacity *= 2;
-        T** temp = new T* [capacity];
+        T** temp = new T* [capacity]();
         for (int i = 0; i < size; i++) {
             temp[i] = data[i];
         }
         delete [] data;
         data = temp;
         //This part should move hash into a new bigger array
-        IntNode** temp2 = new IntNode* [capacity];
+        IntNode** temp2 = new IntNode* [capacity]();
         for (int i = 0; i < oldCapacity; i++) {
             if (hash[i]!=nullptr) {
                 IntNode* currIndex = hash[i];

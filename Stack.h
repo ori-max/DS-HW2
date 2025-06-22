@@ -25,7 +25,7 @@ private:
     int capacity;
 
 public:
-    Stack():data(new T*[1]), hash(new IntNode[1]), size(0), capacity(1) {}
+    Stack():data(new T*[1]()), hash(new IntNode[1]()), size(0), capacity(1) {}
     int getSize() const;
     void setSize(int size);
     T* getItem(int id) const;
