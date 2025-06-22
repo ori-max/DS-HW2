@@ -74,3 +74,12 @@ T* Stack<T>::getItem(int id) const {
     }
     throw std::out_of_range("Item not found");//shouldn't happen whatsoever
 }
+template<typename T>
+Stack<T>::~Stack() {
+    for (int i = 0; i < capacity; i++) {
+        delete data[i];
+        delete hash[i];
+    }
+    delete [] data;
+    delete [] hash;
+}
