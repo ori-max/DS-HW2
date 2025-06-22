@@ -9,11 +9,20 @@
 template <typename T>
 class Stack {
 private:
+    struct IntNode {
+        int id;
+        int data;
+        IntNode *next;
+        IntNode(int id, int data) : id(id), data(data), next(nullptr) {}
+        IntNode(): id(0), data(0),next(nullptr) {}
+    };
     T** data;
-    int *hash;
+    IntNode** hash;
     int size;
+    int capacity;
+
 public:
-    Stack():data(nullptr), hash(nullptr), size(0) {}
+    Stack():data(new T*[1]), hash(new IntNode[1]), size(0), capacity(1) {}
     int getSize() const;
     void setSize(int size);
     T* getItem(int id) const;
