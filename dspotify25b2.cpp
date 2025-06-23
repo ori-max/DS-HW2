@@ -118,10 +118,23 @@ output_t<int> DSpotify::getSongGenre(int songId){
 }
 
 
-
+//ths function returns the number of songs in a genre, it will check input, then check the genre exists,
+//and it will return the numsongs of that genre
 output_t<int> DSpotify::getNumberOfSongsByGenre(int genreId){
-    return 0;
+
+    if(genreId <= 0) {
+        return StatusType::INVALID_INPUT;
+    }
+
+    try {
+
+        return genreTable.getItem(genreId)->getNumSongs();
+
+    } catch (...) {
+        return StatusType::FAILURE;
+    }
 }
+
 
 
 // this function returns the number of times this sond changed genres, it will check input then do the algorithm from dry
