@@ -92,9 +92,32 @@ StatusType DSpotify::mergeGenres(int genreId1, int genreId2, int genreId3){
     return StatusType::FAILURE;
 }
 
+
+
+
+// this function returns the genre of the song, it will check input then check if the song exists then climb up the tree and return the genre
 output_t<int> DSpotify::getSongGenre(int songId){
-    return 0;
+
+    if(songId <= 0) {
+        return StatusType::INVALID_INPUT;
+    }
+
+    try {
+
+        SongNode *songNode = songTable.getItem(songId);
+
+        while (songNode->getParent() != nullptr) {
+            songNode = songNode->getParent();
+        }
+
+        return songNode->getGenre()->getId();
+
+    } catch (...) {
+        return StatusType::FAILURE;
+    }
 }
+
+
 
 output_t<int> DSpotify::getNumberOfSongsByGenre(int genreId){
     return 0;
