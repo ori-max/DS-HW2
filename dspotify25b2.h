@@ -13,13 +13,23 @@
 #ifndef DSPOTIFY25SPRING_WET2_H_
 #define DSPOTIFY25SPRING_WET2_H_
 
+#include "Genre.h"
+#include "hashTable.h"
 #include "wet2util.h"
 
+/*
+ * the class Dspotify has a table of genres that have reversed tree of songs and also pointers to these songs will be
+ * saved in another hash table so we can access to data from songs
+ @param genreTable: the hash table of the genres
+ @param songTable : the hash table of the songs
+ */
 class DSpotify {
 private:
     //
     // Here you may add anything you want
     //
+    hashTable<Genre> genreTable;
+    hashTable<SongNode> songTable;
     
 public:
     // <DO-NOT-MODIFY> {

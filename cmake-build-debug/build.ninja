@@ -63,8 +63,8 @@ build CMakeFiles/MyExecutableName.dir/dspotify25b2.cpp.o: CXX_COMPILER__MyExecut
   OBJECT_DIR = CMakeFiles/MyExecutableName.dir
   OBJECT_FILE_DIR = CMakeFiles/MyExecutableName.dir
 
-build CMakeFiles/MyExecutableName.dir/Stack.cpp.o: CXX_COMPILER__MyExecutableName_unscanned_Debug /Users/Yotam/Desktop/DS_wet2_Spring_2025/Stack.cpp || cmake_object_order_depends_target_MyExecutableName
-  DEP_FILE = CMakeFiles/MyExecutableName.dir/Stack.cpp.o.d
+build CMakeFiles/MyExecutableName.dir/hashTable.cpp.o: CXX_COMPILER__MyExecutableName_unscanned_Debug /Users/Yotam/Desktop/DS_wet2_Spring_2025/hashTable.cpp || cmake_object_order_depends_target_MyExecutableName
+  DEP_FILE = CMakeFiles/MyExecutableName.dir/hashTable.cpp.o.d
   FLAGS = -g -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.7 -fcolor-diagnostics
   INCLUDES = -I/Users/Yotam/Desktop/DS_wet2_Spring_2025/include
   OBJECT_DIR = CMakeFiles/MyExecutableName.dir
@@ -92,7 +92,7 @@ build CMakeFiles/MyExecutableName.dir/Genre.cpp.o: CXX_COMPILER__MyExecutableNam
 #############################################
 # Link the executable MyExecutableName
 
-build MyExecutableName: CXX_EXECUTABLE_LINKER__MyExecutableName_Debug CMakeFiles/MyExecutableName.dir/main25b2.cpp.o CMakeFiles/MyExecutableName.dir/dspotify25b2.cpp.o CMakeFiles/MyExecutableName.dir/Stack.cpp.o CMakeFiles/MyExecutableName.dir/SongNode.cpp.o CMakeFiles/MyExecutableName.dir/Genre.cpp.o
+build MyExecutableName: CXX_EXECUTABLE_LINKER__MyExecutableName_Debug CMakeFiles/MyExecutableName.dir/main25b2.cpp.o CMakeFiles/MyExecutableName.dir/dspotify25b2.cpp.o CMakeFiles/MyExecutableName.dir/hashTable.cpp.o CMakeFiles/MyExecutableName.dir/SongNode.cpp.o CMakeFiles/MyExecutableName.dir/Genre.cpp.o
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.7
   OBJECT_DIR = CMakeFiles/MyExecutableName.dir
   POST_BUILD = :

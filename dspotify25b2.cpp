@@ -4,17 +4,38 @@
 #include "dspotify25b2.h"
 
 
-DSpotify::DSpotify(){
+DSpotify::DSpotify() = default;
 
-}
+DSpotify::~DSpotify() = default;
 
-DSpotify::~DSpotify(){
 
-}
-
+// add genre adds a genre to the genre table, first if checks the input, then it check if the genre already exists
+// then it adds it
 StatusType DSpotify::addGenre(int genreId){
-    return StatusType::FAILURE;
+
+    if( genreId <= 0) {
+        return StatusType::INVALID_INPUT;
+    }
+
+    try {
+        // we will try to find the genre in the genre table, if it is found then failure because the genre alredy exists
+        genreTable.getItem(genreId);
+        return StatusType::FAILURE;
+
+    } catch (...) {
+        try {
+
+            Genre *genre = new Genre(genreId);
+            genreTable.push(genre);
+
+        } catch (...) {
+            return StatusType::ALLOCATION_ERROR;
+        }
+    }
+    return StatusType::SUCCESS;
 }
+
+
 
 StatusType DSpotify::addSong(int songId, int genreId){
     return StatusType::FAILURE;

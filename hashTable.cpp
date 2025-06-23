@@ -2,6 +2,11 @@
 
 #include <stdexcept>
 #include "hashTable.h"
+
+template<typename T>
+hashTable<T>::hashTable():data(new T*[1]()), hash(new IntNode*[1]()), size(0), capacity(1) {}
+
+
 template<typename T>
 int hashTable<T>::getSize() const {
     return size;

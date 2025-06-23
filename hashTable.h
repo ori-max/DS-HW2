@@ -26,7 +26,7 @@ private:
     int capacity;
 
 public:
-    hashTable():data(new T*[1]()), hash(new IntNode*[1]()), size(0), capacity(1) {}
+    hashTable();
     int getSize() const;
     void setSize(int size);
     T* getItem(int id) const;
