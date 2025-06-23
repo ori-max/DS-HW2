@@ -4,6 +4,7 @@
 
 #ifndef STACK_H
 #define STACK_H
+#include <stdexcept>
 
 #endif //STACK_H
 template <typename T>
