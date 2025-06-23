@@ -9,11 +9,13 @@
  * and (see SongNode class) the songs tree also has a pointer to the genre
  @param root: the root for the reversed tree of songs
  @param genreId: the id of the genre
+ @param numSongs: the number of songs in the reversed tree
 */
 class Genre {
 private:
     SongNode *root;
     int genreId;
+    int numSongs;
 
 public:
     explicit Genre(int genreId);
@@ -24,5 +26,7 @@ public:
     SongNode *getRoot() const;
 
     int getId() const;
+    int getNumSongs() const;
+    void setNumSongs(int numSongs);
 
 };

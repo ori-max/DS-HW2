@@ -1,20 +1,20 @@
 //This file does not contain checks for allocation failure or any extreme unusual cases
 
 #include <stdexcept>
-#include "stack.h"
+#include "hashTable.h"
 template<typename T>
-int Stack<T>::getSize() const {
+int hashTable<T>::getSize() const {
     return size;
 }
 
 
 template<typename T>
-void Stack<T>::setSize(int size) {
+void hashTable<T>::setSize(int size) {
     this->size = size;
 }
 
 template<typename T>
-void Stack<T>::push(T* item) {
+void hashTable<T>::push(T* item) {
     if (size >= capacity) {
         //This part should move data into a new bigger array
         int oldCapacity = capacity;
@@ -53,7 +53,7 @@ void Stack<T>::push(T* item) {
 
 
 template<typename T>
-T* Stack<T>::getItem(int id) const {
+T* hashTable<T>::getItem(int id) const {
     int firstIndex = id%capacity;
     IntNode* currIndex = hash[firstIndex];
     while (currIndex!=nullptr) {
@@ -67,7 +67,7 @@ T* Stack<T>::getItem(int id) const {
 
 
 template<typename T>
-Stack<T>::~Stack() {
+hashTable<T>::~hashTable() {
     for (int i = 0; i < capacity; i++) {
         delete data[i];
         delete hash[i];

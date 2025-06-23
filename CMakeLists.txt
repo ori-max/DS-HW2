@@ -9,8 +9,8 @@ add_executable(MyExecutableName
         dspotify25b2.cpp
         dspotify25b2.h
         wet2util.h
-        Stack.h
-        Stack.cpp
+        hashTable.h
+        hashTable.cpp
         Genre.h
         SongNode.h
         SongNode.cpp

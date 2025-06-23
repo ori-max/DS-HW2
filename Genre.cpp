@@ -3,7 +3,7 @@
 //
 #include "Genre.h"
 
-Genre::Genre(int genreId): root(nullptr), genreId(genreId) {}
+Genre::Genre(int genreId): root(nullptr), genreId(genreId), numSongs(0){}
 
 Genre::~Genre() = default;
 
@@ -19,6 +19,14 @@ void Genre::setRoot(SongNode *root) {
     this->root = root;
 }
 
+
+int Genre::getNumSongs() const {
+    return numSongs;
+}
+
+void Genre::setNumSongs(int numSongs) {
+    this->numSongs = numSongs;
+}
 
 
 

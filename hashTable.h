@@ -7,7 +7,7 @@
 
 #endif //STACK_H
 template <typename T>
-class Stack {
+class hashTable {
 private:
     struct IntNode {
         int id;
@@ -26,10 +26,10 @@ private:
     int capacity;
 
 public:
-    Stack():data(new T*[1]()), hash(new IntNode*[1]()), size(0), capacity(1) {}
+    hashTable():data(new T*[1]()), hash(new IntNode*[1]()), size(0), capacity(1) {}
     int getSize() const;
     void setSize(int size);
     T* getItem(int id) const;
     void push(T* item);
-    ~Stack();
+    ~hashTable();
 };
