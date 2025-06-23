@@ -37,9 +37,50 @@ StatusType DSpotify::addGenre(int genreId){
 
 
 
+/*
+ * add song adds a song who's genre is genreId
+ * first it will check the input, then it will check if the song already exists or the genre does not exist
+ * then if everything is good it will add it to the
+ */
 StatusType DSpotify::addSong(int songId, int genreId){
-    return StatusType::FAILURE;
+
+    if(songId <= 0 || genreId <= 0) {
+        return StatusType::INVALID_INPUT;
+    }
+
+    try {
+        // if it finds the song in question then it is an error
+        songTable.getItem(songId);
+        return StatusType::FAILURE;
+
+    } catch (...) {
+
+        Genre *genre = genreTable.getItem(genreId);
+
+        try {
+            SongNode *songNode = new SongNode(nullptr, songId, nullptr);
+
+            if(genre->getRoot() == nullptr) {
+                genre->setRoot(songNode);
+                songNode->setGenre(genre);
+            }
+            else {
+                songNode->setParent(genre->getRoot());
+            }
+        } catch (...) {
+            return StatusType::ALLOCATION_ERROR;
+        }
+
+    } catch (...) {
+        //if the genre does not exist then it is a failure
+        return StatusType::FAILURE;
+    }
+
+    return StatusType::SUCCESS;
 }
+
+
+
 
 StatusType DSpotify::mergeGenres(int genreId1, int genreId2, int genreId3){
     return StatusType::FAILURE;
