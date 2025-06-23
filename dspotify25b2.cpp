@@ -67,6 +67,7 @@ StatusType DSpotify::addSong(int songId, int genreId){
             else {
                 songNode->setParent(genre->getRoot());
             }
+            genre->setNumSongs(genre->getNumSongs() + 1);
         } catch (...) {
             return StatusType::ALLOCATION_ERROR;
         }
