@@ -4,6 +4,7 @@
 
 #pragma once
 #include <stdexcept>
+#include <iostream>
 template <typename T>
 class hashTable {
 private:
@@ -30,6 +31,7 @@ public:
     T* getItem(int id) const;
     void push(T* item);
     ~hashTable();
+    void printTable();
 };
 
 template<typename T>
@@ -49,6 +51,8 @@ void hashTable<T>::setSize(int size) {
 
 template<typename T>
 void hashTable<T>::push(T* item) {
+    //std::cout<<"before push"<<std::endl;
+    //this->printTable();
     if (size >= capacity) {
         //This part should move data into a new bigger array
         int oldCapacity = capacity;
@@ -83,6 +87,8 @@ void hashTable<T>::push(T* item) {
     newNode->next = hash[firstIndex];
     hash[firstIndex] = newNode;
     data[size++] = item;
+    //std::cout<<"after push"<<std::endl;
+    //this->printTable();
 }
 
 
@@ -108,4 +114,10 @@ hashTable<T>::~hashTable() {
     }
     delete [] data;
     delete [] hash;
+}
+template<typename T>
+void hashTable<T>::printTable() {
+    for (int i = 0; i < size; i++) {
+        std::cout << data[i]->getId()  <<std::endl;
+    }
 }
