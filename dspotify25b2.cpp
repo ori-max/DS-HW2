@@ -61,13 +61,18 @@ StatusType DSpotify::addSong(int songId, int genreId){
             SongNode *songNode = new SongNode(nullptr, songId, nullptr);
 
             if(genre->getRoot() == nullptr) {
+
                 genre->setRoot(songNode);
                 songNode->setGenre(genre);
+
             }
             else {
+
                 songNode->setParent(genre->getRoot());
+                songNode->setTimesChangedGenre(-songNode->getParent()->getTimesChangedGenre()); //why this works explained in dry part
             }
             genre->setNumSongs(genre->getNumSongs() + 1);
+
         } catch (...) {
             return StatusType::ALLOCATION_ERROR;
         }
@@ -95,6 +100,28 @@ output_t<int> DSpotify::getNumberOfSongsByGenre(int genreId){
     return 0;
 }
 
+
+// this function returns the number of times this sond changed genres, it will check input then do the algorithm from dry
 output_t<int> DSpotify::getNumberOfGenreChanges(int songId){
-    return 0;
+
+    if(songId <= 0) {
+        return StatusType::INVALID_INPUT;
+    }
+
+    int totalTimesChanged = 0;
+    try {
+
+        SongNode *node = songTable.getItem(songId);
+
+        totalTimesChanged += node->getTimesChangedGenre();
+
+        while (node->getParent() != nullptr) {
+            node = node->getParent();
+            totalTimesChanged += node->getTimesChangedGenre();
+        }
+        return totalTimesChanged;
+
+    } catch (...) {
+        return StatusType::FAILURE;
+    }
 }
