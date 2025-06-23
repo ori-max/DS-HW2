@@ -2,11 +2,8 @@
 // Created by oribo on 22/06/2025.
 //
 
-#ifndef STACK_H
-#define STACK_H
+#pragma once
 #include <stdexcept>
-
-#endif //STACK_H
 template <typename T>
 class hashTable {
 private:
@@ -36,7 +33,7 @@ public:
 };
 
 template<typename T>
-hashTable<T>::hashTable():data(new T*[1]()), hash(new IntNode*[1]()), size(0), capacity(1) {}
+hashTable<T>::hashTable():data(new T*[1]{}), hash(new IntNode*[1]{}), size(0), capacity(1) {}
 
 
 template<typename T>
@@ -56,14 +53,14 @@ void hashTable<T>::push(T* item) {
         //This part should move data into a new bigger array
         int oldCapacity = capacity;
         capacity *= 2;
-        T** temp = new T* [capacity]();
+        T** temp = new T* [capacity]{};
         for (int i = 0; i < size; i++) {
             temp[i] = data[i];
         }
         delete [] data;
         data = temp;
         //This part should move hash into a new bigger array
-        IntNode** temp2 = new IntNode* [capacity]();
+        IntNode** temp2 = new IntNode* [capacity]{};
         for (int i = 0; i < oldCapacity; i++) {
             IntNode* currIndex = hash[i];
             while (currIndex!=nullptr) {
