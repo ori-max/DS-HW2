@@ -54,32 +54,31 @@ StatusType DSpotify::addSong(int songId, int genreId){
         return StatusType::FAILURE;
 
     } catch (...) {
+        try{
+            Genre *genre = genreTable.getItem(genreId);
 
-        Genre *genre = genreTable.getItem(genreId);
+            try {
+                SongNode *songNode = new SongNode(nullptr, songId, nullptr);
 
-        try {
-            SongNode *songNode = new SongNode(nullptr, songId, nullptr);
+                if(genre->getRoot() == nullptr) {
 
-            if(genre->getRoot() == nullptr) {
+                    genre->setRoot(songNode);
+                    songNode->setGenre(genre);
 
-                genre->setRoot(songNode);
-                songNode->setGenre(genre);
+                }
+                else {
 
+                    songNode->setParent(genre->getRoot());
+                    songNode->setTimesChangedGenre(-songNode->getParent()->getTimesChangedGenre()); //why this works explained in dry part
+                }
+                genre->setNumSongs(genre->getNumSongs() + 1);
+            }catch (...) {
+                //if the genre does not exist then it is a failure
+                return StatusType::FAILURE;
             }
-            else {
-
-                songNode->setParent(genre->getRoot());
-                songNode->setTimesChangedGenre(-songNode->getParent()->getTimesChangedGenre()); //why this works explained in dry part
-            }
-            genre->setNumSongs(genre->getNumSongs() + 1);
-
         } catch (...) {
             return StatusType::ALLOCATION_ERROR;
         }
-
-    } catch (...) {
-        //if the genre does not exist then it is a failure
-        return StatusType::FAILURE;
     }
 
     return StatusType::SUCCESS;
