@@ -87,9 +87,117 @@ StatusType DSpotify::addSong(int songId, int genreId){
 
 
 
-
+/*
+ * this function mesrges the songs under genre1 and genre2 in genre3, it will check input then check that genre1, genre2
+ * exist and that genre3 does not exist then it will do the merging logic
+ */
 StatusType DSpotify::mergeGenres(int genreId1, int genreId2, int genreId3){
-    return StatusType::FAILURE;
+
+    if(genreId1 <= 0 || genreId2 <= 0 || genreId3 <= 0) {
+        return StatusType::FAILURE;
+    }
+
+    try {
+        // if genre3 exists then it is a failure if not there will be an exception
+        genreTable.getItem(genreId3);
+        return StatusType::FAILURE;
+
+    } catch (...) {
+
+        addGenre(genreId3);
+
+        try {
+            Genre *genre1 = genreTable.getItem(genreId1);
+            Genre *genre2 = genreTable.getItem(genreId2);
+            Genre *genre3 = genreTable.getItem(genreId3);
+
+            if(genre1->getNumSongs() == 0 || genre2->getNumSongs() == 0) {
+                //if both genres are empty we don't need to do anything
+                return StatusType::SUCCESS;
+            }
+            //if one of the genres is empty we can do a simpler algorithm
+            if(genre1->getNumSongs() == 0) {
+
+                //adjusting times changed genre
+                genre2->getRoot()->setTimesChangedGenre(genre2->getRoot()->getTimesChangedGenre() + 1);
+
+                //adjusting genre of the root
+                genre2->getRoot()->setGenre(genre3);
+
+                //adjusting the roots of the genres
+                genre3->setRoot(genre2->getRoot());
+                genre2->setRoot(nullptr);
+
+                //adjusting  num songs
+                genre3->setNumSongs(genre2->getNumSongs());
+                genre2->setNumSongs(0);
+
+                return StatusType::SUCCESS;
+            }
+
+            if(genre2->getNumSongs() == 0) {
+
+                // adjusting times changed genre
+                genre1->getRoot()->setTimesChangedGenre(genre1->getRoot()->getTimesChangedGenre() + 1);
+
+                // adjusting genre of the root
+                genre1->getRoot()->setGenre(genre3);
+
+                //adjusting the roots of the genres
+                genre3->setRoot(genre1->getRoot());
+                genre1->setRoot(nullptr);
+
+                //adjusting  num songs
+                genre3->setNumSongs(genre1->getNumSongs());
+                genre1->setNumSongs(0);
+
+                return StatusType::SUCCESS;
+            }
+            //if both genres have songs we need to determine which one is bigger and then do the algorithm
+            Genre *biggerGenre;
+            Genre *smallerGenre;
+
+            if(genre1->getNumSongs() >= genre2->getNumSongs()) {
+                biggerGenre = genre1;
+                smallerGenre = genre2;
+            }
+            else {
+                biggerGenre = genre2;
+                smallerGenre= genre1;
+            }
+
+            SongNode *rootOfBiggerGenre = biggerGenre->getRoot();
+            SongNode *rootOfSmallerGenre = smallerGenre->getRoot();
+
+            //adjusting times changed genre for both roots
+            rootOfSmallerGenre->setTimesChangedGenre(rootOfSmallerGenre->getTimesChangedGenre() -
+                rootOfBiggerGenre->getTimesChangedGenre());
+            rootOfBiggerGenre->setTimesChangedGenre(rootOfBiggerGenre->getTimesChangedGenre() + 1);
+
+            //adjusting parents
+            rootOfSmallerGenre->setParent(rootOfBiggerGenre);
+
+            //adjusting genre of roots
+            rootOfSmallerGenre->setGenre(nullptr);
+            rootOfBiggerGenre->setGenre(genre3);
+
+            //adjusting the genres pointer to root
+            genre1->setRoot(nullptr);
+            genre2->setRoot(nullptr);
+            genre3->setRoot(rootOfBiggerGenre);
+
+            //adjusting the number of songs in each genre
+            genre3->setNumSongs(genre1->getNumSongs() + genre2->getNumSongs());
+            genre1->setNumSongs(0);
+            genre2->setNumSongs(0);
+
+            return StatusType::SUCCESS;
+
+        } catch (...) {
+            //if one of the genres does not exist of there has been an error than failure
+            return StatusType::FAILURE;
+        }
+    }
 }
 
 
