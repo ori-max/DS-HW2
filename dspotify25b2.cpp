@@ -69,21 +69,26 @@ StatusType DSpotify::addSong(int songId, int genreId){
                 else {
 
                     songNode->setParent(genre->getRoot());
-                    songNode->setTimesChangedGenre(-songNode->getParent()->getTimesChangedGenre()); //why this works explained in dry part
+                    songNode->setTimesChangedGenre(-songNode->getParent()->getTimesChangedGenre() + 1); //why this works explained in dry part
                 }
                 try {
+
                     songTable.push(songNode);
                     genre->setNumSongs(genre->getNumSongs() + 1);
+
                 } catch (...) {
+
+                    delete songNode;
                     return StatusType::ALLOCATION_ERROR;
                 }
 
             }catch (...) {
-                //if the genre does not exist then it is a failure
-                return StatusType::FAILURE;
+
+                return StatusType::ALLOCATION_ERROR;
             }
         } catch (...) {
-            return StatusType::ALLOCATION_ERROR;
+            //if the genre does not exist then it is a failure
+            return StatusType::FAILURE;
         }
     }
 
@@ -99,7 +104,11 @@ StatusType DSpotify::addSong(int songId, int genreId){
 StatusType DSpotify::mergeGenres(int genreId1, int genreId2, int genreId3){
 
     if(genreId1 <= 0 || genreId2 <= 0 || genreId3 <= 0) {
-        return StatusType::FAILURE;
+        return StatusType::INVALID_INPUT;
+    }
+
+    if(genreId1 == genreId2 || genreId2 == genreId3 || genreId1 == genreId3) {
+        return StatusType::INVALID_INPUT;
     }
 
     try {
@@ -109,14 +118,17 @@ StatusType DSpotify::mergeGenres(int genreId1, int genreId2, int genreId3){
 
     } catch (...) {
 
-        addGenre(genreId3);
-
         try {
             Genre *genre1 = genreTable.getItem(genreId1);
             Genre *genre2 = genreTable.getItem(genreId2);
+
+            if(addGenre(genreId3) != StatusType::SUCCESS) {
+                return StatusType::ALLOCATION_ERROR;
+            }
+
             Genre *genre3 = genreTable.getItem(genreId3);
 
-            if(genre1->getNumSongs() == 0 || genre2->getNumSongs() == 0) {
+            if(genre1->getNumSongs() == 0 && genre2->getNumSongs() == 0) {
                 //if both genres are empty we don't need to do anything
                 return StatusType::SUCCESS;
             }
@@ -142,8 +154,10 @@ StatusType DSpotify::mergeGenres(int genreId1, int genreId2, int genreId3){
 
             if(genre2->getNumSongs() == 0) {
 
+
                 // adjusting times changed genre
                 genre1->getRoot()->setTimesChangedGenre(genre1->getRoot()->getTimesChangedGenre() + 1);
+
 
                 // adjusting genre of the root
                 genre1->getRoot()->setGenre(genre3);

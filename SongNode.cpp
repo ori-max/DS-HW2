@@ -4,7 +4,7 @@
 //
 
 SongNode::SongNode(SongNode *parent, int songId, Genre *genre): parent(parent),
-songId(songId), genre(genre), timesChangedGenre(0) {}
+songId(songId), genre(genre), timesChangedGenre(1) {}
 
 SongNode::~SongNode() = default;
 
