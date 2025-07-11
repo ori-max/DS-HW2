@@ -283,7 +283,25 @@ output_t<int> DSpotify::getNumberOfGenreChanges(int songId){
     if(songId <= 0) {
         return StatusType::INVALID_INPUT;
     }
+    try {
 
+        SongNode *songNode = songTable.getItem(songId);
+
+        while (songNode->getParent() != nullptr) {
+            songNode = songNode->getParent();
+        }
+        SongNode* originalNode = songTable.getItem(songId);
+        try {
+            Compression(originalNode, songNode);
+        }catch (...) {
+            return StatusType::ALLOCATION_ERROR;
+        }
+
+
+
+    } catch (...) {
+        return StatusType::FAILURE;
+    }
     int totalTimesChanged = 0;
     try {
 
