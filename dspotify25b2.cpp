@@ -219,9 +219,15 @@ StatusType DSpotify::mergeGenres(int genreId1, int genreId2, int genreId3){
     }
 }
 
-
-
-
+int Compression(SongNode* songNode, SongNode* headSong) {
+    if (songNode->getParent()==nullptr) {
+        return 0;
+    }
+    int oldTimesChangedGenre = songNode->getTimesChangedGenre();
+    songNode->setTimesChangedGenre(Compression(songNode->getParent(), headSong)+oldTimesChangedGenre);
+    songNode->setParent(headSong);
+    return songNode->getTimesChangedGenre();
+}
 // this function returns the genre of the song, it will check input then check if the song exists then climb up the tree and return the genre
 output_t<int> DSpotify::getSongGenre(int songId){
 
@@ -236,8 +242,15 @@ output_t<int> DSpotify::getSongGenre(int songId){
         while (songNode->getParent() != nullptr) {
             songNode = songNode->getParent();
         }
+        SongNode* originalNode = songTable.getItem(songId);
+        try {
+            Compression(originalNode, songNode);
+            return songNode->getGenre()->getId();
+        }catch (...) {
+            return StatusType::ALLOCATION_ERROR;
+        }
 
-        return songNode->getGenre()->getId();
+
 
     } catch (...) {
         return StatusType::FAILURE;
